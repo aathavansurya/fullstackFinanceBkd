@@ -3,16 +3,16 @@ import { ObjectId } from "mongodb";
 import dbCon from '../dbConfig.js';
 import * as helper from '../helper.js';
 
-const print = console.log;
+// const print =(...args) => console.log(args);
 const table = await dbCon();
 const login = async (req, res, next) => {
   const { userName, password } = req.body;
   try {
-    print({ userName, password });
+    // print({ userName, password });
     const fetchUser = await table.find({ email: userName }).toArray();
     if (fetchUser.length > 0) {
       const user = fetchUser[0];
-      console.log(user.password , password);
+      // console.log(user.password , password);
       
       if (user.password === password) {
         const jwt = helper.jwtSign({ userName: user.name, email: user.email, _id: user._id });
