@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 const mongodb_uri ="mongodb+srv://hijolopolo834:tSOGJpFVXImJRTbU@cluster0.nkuhu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 const uri = mongodb_uri;
-console.log({uri});
 
 const client = new MongoClient(uri);
 
