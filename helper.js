@@ -22,7 +22,7 @@ function sixDigitOtp() {
 
    if (!authHeader) return res.status(403).json({ status : 400 ,message: "Token missing" });
    
-   const token = authHeader.split(" ")[1]; // Extract token after 'Bearer'
+   const token = authHeader; // Extract token after 'Bearer'
    console.log({token});
 
    if (!token) return res.status(403).json({ status : 400,message: "Token not found" });
