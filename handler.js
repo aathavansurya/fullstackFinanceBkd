@@ -27,7 +27,7 @@ app.post('/validateToken',helper.validateToken,(req,res)=> res.status(200).json(
 
 
 app.use((err ,req,res,next) => {
-    // console.log({err,res});
+    console.log({err});
     
     const response = {
         status:err?.status || 500,

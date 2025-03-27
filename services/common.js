@@ -81,9 +81,9 @@ const addDue = async (req, res, next) => {
     const request = req.body;
     request.updateData.pendingAmount = Number(request.updateData.pendingAmount) - Number(request.dueAmount);
     if (request.updateData.pendingAmount <= 0) request.updateData.status = false;
-    const cleanData = Object.fromEntries(
-      Object.entries(helper.addUpdated(request.updateData)).filter(([_, value]) => value !== null && value !== undefined)
-    );
+    const cleanData = {name: request.updateData.name,place:request.updateData.place,contactNumber: request.updateData.contactNumber, pendingAmount: request.updateData.pendingAmount}; 
+    console.log(cleanData);
+    
     await table.updateOne({ _id: new ObjectId(request.updateId) }, { $set: cleanData });
     let history = {
       authorId: request.user._id,
