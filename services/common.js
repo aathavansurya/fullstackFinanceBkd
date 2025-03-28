@@ -80,7 +80,10 @@ const addDue = async (req, res, next) => {
   try {
     const request = req.body;
     request.updateData.pendingAmount = Number(request.updateData.pendingAmount) - Number(request.dueAmount);
-    if (request.updateData.pendingAmount <= 0) request.updateData.status = false;
+    if( request.updateData.pendingAmount < 0) {
+      throw { status: 400, message: "Due amount is greater than loan amount" };
+    }
+    if (request.updateData.pendingAmount === 0) request.updateData.status = false;
     const cleanData = {name: request.updateData.name,place:request.updateData.place,contactNumber: request.updateData.contactNumber, pendingAmount: request.updateData.pendingAmount}; 
     console.log(cleanData);
     
@@ -95,7 +98,7 @@ const addDue = async (req, res, next) => {
       pendingAmount: request.updateData.pendingAmount,
       paidDue: request.dueAmount,
     };
-    history = helper.addCreatedAndUpdated(history);
+    history.createAt = request.dueAddedDate
     await table.insertOne({ ...history });
     res.status(200).json({ status: 200, message: "Success" });
   } catch (err) {
